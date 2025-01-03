@@ -1,29 +1,39 @@
 import React, { useEffect } from 'react';
+import { useConversation } from '@11labs/react';
 
 const App: React.FC = () => {
-  useEffect(() => {
-    // Load the external script
-    const script = document.createElement('script');
-    script.src = 'https://elevenlabs.io/convai-widget/index.js';
-    script.async = true;
-    script.type = 'text/javascript';
-    document.body.appendChild(script);
+  const conversation = useConversation();
 
-    // Cleanup script on unmount
-    return () => {
-      document.body.removeChild(script);
+  useEffect(() => {
+    const startConversation = async () => {
+      try {
+        // Prompt the user for microphone access
+        await navigator.mediaDevices.getUserMedia({ audio: true });
+
+        // Start the conversation using the public agentId
+        await conversation.startSession({
+          agentId: '7hTgY55DzvBMcGR4RBdX', // Replace with your actual agent ID
+        });
+
+        console.log('Conversation started successfully');
+      } catch (error) {
+        console.error('Failed to start conversation:', error);
+      }
     };
-  }, []);
+
+    startConversation();
+
+    // Clean up session on unmount
+    return () => {
+      conversation.endSession().then(() => {
+        console.log('Conversation ended');
+      });
+    };
+  }, [conversation]);
 
   return (
-    <div>
-      {/* Auto-starting ElevenLabs widget */}
-      <elevenlabs-convai
-        agent-id="7hTgY55DzvBMcGR4RBdX"
-        auto-start="true"
-        theme="dark"
-        language="en-US"
-      ></elevenlabs-convai>
+    <div style={{ width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', background: '#000' }}>
+      <h2 style={{ color: '#fff' }}>ElevenLabs Conversational AI is active...</h2>
     </div>
   );
 };
