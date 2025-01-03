@@ -17,7 +17,7 @@ const App: React.FC = () => {
         console.log('Button clicked');
         clearInterval(interval); // Stop further checks
       }
-    }, 30000); // Check every 30 seconds
+    }, 3000); // Check every 30 seconds
 
     // Cleanup script and interval on unmount
     return () => {
@@ -28,7 +28,6 @@ const App: React.FC = () => {
 
   return (
     <div>
-      <h1>My App</h1>
       <elevenlabs-convai agent-id="7hTgY55DzvBMcGR4RBdX"></elevenlabs-convai>
     </div>
   );
