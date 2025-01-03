@@ -9,26 +9,21 @@ const App: React.FC = () => {
     script.type = 'text/javascript';
     document.body.appendChild(script);
 
-    // Periodically check for the button and click it
-    const interval = setInterval(() => {
-      const button = document.querySelector('button[title="Start a call"]') as HTMLButtonElement;
-      if (button) {
-        button.click(); // Automatically click the button
-        console.log('Button clicked');
-        clearInterval(interval); // Stop further checks
-      }
-    }, 3000); // Check every 30 seconds
-
-    // Cleanup script and interval on unmount
+    // Cleanup script on unmount
     return () => {
       document.body.removeChild(script);
-      clearInterval(interval);
     };
   }, []);
 
   return (
     <div>
-      <elevenlabs-convai agent-id="7hTgY55DzvBMcGR4RBdX"></elevenlabs-convai>
+      {/* Auto-starting ElevenLabs widget */}
+      <elevenlabs-convai
+        agent-id="7hTgY55DzvBMcGR4RBdX"
+        auto-start="true"
+        theme="dark"
+        language="en-US"
+      ></elevenlabs-convai>
     </div>
   );
 };
