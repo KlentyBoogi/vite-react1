@@ -8,7 +8,7 @@ const App: React.FC = () => {
   useEffect(() => {
     const fetchSignedUrl = async () => {
       const requestHeaders = new Headers();
-      requestHeaders.set('xi-api-key', 'sk_36bb37f5048e45098241d7ea14aaf82ead5fd4f051ff4398'); // API key from ElevenLabs
+      requestHeaders.set('xi-api-key', 'sk_36bb37f5048e45098241d7ea14aaf82ead5fd4f051ff4398');
 
       try {
         const response = await fetch(
@@ -40,7 +40,6 @@ const App: React.FC = () => {
 
     fetchSignedUrl();
 
-    // Clean up on unmount
     return () => {
       conversation.endSession().then(() => console.log('Conversation ended'));
     };
