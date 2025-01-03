@@ -11,7 +11,7 @@ const App: React.FC = () => {
 
     // Periodically check for the button and click it
     const interval = setInterval(() => {
-      const button = document.querySelector('button[title="Start a call"]');
+      const button = document.querySelector('button[title="Start a call"]') as HTMLButtonElement;
       if (button) {
         button.click(); // Automatically click the button
         console.log('Button clicked');
