@@ -2,14 +2,27 @@ import React, { useEffect } from 'react';
 
 const App: React.FC = () => {
   useEffect(() => {
+    // Load the external script
     const script = document.createElement('script');
     script.src = 'https://elevenlabs.io/convai-widget/index.js';
     script.async = true;
     script.type = 'text/javascript';
     document.body.appendChild(script);
 
+    // Periodically check for the button and click it
+    const interval = setInterval(() => {
+      const button = document.querySelector('button[title="Start a call"]');
+      if (button) {
+        button.click(); // Automatically click the button
+        console.log('Button clicked');
+        clearInterval(interval); // Stop further checks
+      }
+    }, 30000); // Check every 30 seconds
+
+    // Cleanup script and interval on unmount
     return () => {
       document.body.removeChild(script);
+      clearInterval(interval);
     };
   }, []);
 
