@@ -28,27 +28,17 @@ const App: React.FC = () => {
 
         // Start the conversation using the signed URL
         await conversation.startSession({
-          url: data.signed_url,
+          signedUrl: data.signed_url,
         });
-        setStatus('Initialized'); // Update status to Initialized when conversation starts
+        setStatus('Initialized');
         console.log('Conversation started successfully');
       } catch (error) {
         console.error('Error fetching signed URL or starting conversation:', error);
-        setStatus('Error initializing agent'); // Update status on error
+        setStatus('Error initializing agent');
       }
     };
 
     fetchSignedUrl();
-
-    // Monitor conversation status
-    conversation.onConnect(() => {
-      console.log('Agent connected');
-      setStatus('Initialized');
-    });
-    conversation.onDisconnect(() => {
-      console.log('Agent disconnected');
-      setStatus('Disconnected');
-    });
 
     // Clean up on unmount
     return () => {
